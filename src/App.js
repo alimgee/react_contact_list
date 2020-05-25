@@ -1,17 +1,16 @@
 import React from 'react';
+import "./styles.css";
 
 const App = () =>{
-  const message ="Reacts the bomb"
-
-  const handleClick = () =>{
-    alert('You clicked the message')
-  }
   return (
-    <div>
-      <h1>hello world!! 
-      </h1>
-  <h2 onClick={handleClick}>Click {message} here</h2>
-    </div>
+    <div className="contact-card">
+	<img src="https://via.placeholder.com/150" alt="profile" />
+	<div className="user-details">
+		<p>Name: Jenny Han</p>
+		<p>Email: Jenny.Han@notreal.com</p>
+		<p>Age: 25</p>
+	</div>
+</div>
   )
 }
 
