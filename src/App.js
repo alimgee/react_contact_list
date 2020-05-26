@@ -1,31 +1,40 @@
-import React from "react";
-import "./styles.css";
-
-//App.js
+import React, {useState, useEffect} from "react"
+import "./styles.css"
+// usesState is a  hook that can be used for settting state in a functional component
+// useEffect is similar to componentDidMount and componentDidUpdate:
+//App.js, declared as a functional component
 const App = () => {
-  const contacts = [
-    { name: "Jenny Han", email: "jenny.han@notreal.com", age: 25 },
-    { name: "Jason Long", email: "jason.long@notreal.com", age: 45 },
-    { name: "Peter Pan", email: "peter.pan@neverland.com", age: 100 },
-    { name: "Amy McDonald", email: "amy@email.com", age: 33 },
-  ];
+  const [contacts, setContacts] = useState([]);
+  //creating a state to hold and set an array of contacts
+
+
+  useEffect(() => {
+    // code will run once regardless of state change when in the useEffect function
+    fetch("https://randomuser.me/api/?results=3")//fetch api
+    .then(response => response.json())//set resonse to json
+    .then(data => {
+      console.log(data);// logging api data to console
+      setContacts(data.results)//using state to pass data.results to contact prop
+    });
+  },[]); //<-- notice the empty array
 
   return (
     <>
       {contacts.map((contact) => (
         <ContactCard
-          avatar="https://via.placeholder.com/150"
-          name={contact.name}
+          avatar={contact.picture.large}
+          name={contact.name.first + " " + contact.name.last} 
           email={contact.email}
-          age={contact.age}
-        />
+          age={contact.dob.age}
+          key={contact.email}
+        />//calling contactCard and using the state of contact to set values
       ))}
     </>
-  );
-};
-
-const ContactCard = (props) => {
-  const [showAge, setShowAge] = React.useState(false);
+  )
+}
+// ContactCard component
+const ContactCard = (props) => {//creating state for age
+  const [showAge, setShowAge] = useState(false);
 
   return (
     <div className="contact-card">
@@ -37,7 +46,7 @@ const ContactCard = (props) => {
         {showAge && <p>Age: {props.age}</p>}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
