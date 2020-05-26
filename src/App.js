@@ -19,7 +19,10 @@ const ContactCard = () => {
       <div className="user-details">
         <p>Name: Jenny Han</p>
         <p>Email: Jenny.Han@notreal.com</p>
-        {showAge === true ? <p>Age: 25</p> : null}
+        {
+        // {showAge === true ? <p>Age: 25</p> : null}
+        }
+        {showAge && <p>Age: 25</p> }
       </div>
     </div>
   )
